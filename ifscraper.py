@@ -54,7 +54,7 @@ def downloadPicture(name, url, index, count):
     print "File {0} downloaded. Total files: {1}. Downloaded: {2}. Remaining: {3}".format(index, count, downloaded, remaining)
 
 def PageScrape(pageurl):
-    pageurl += "?view=2"
+    start = datetime.now()
     print "Requesting {0}".format(pageurl)
     html = getURLContent(pageurl)
 
@@ -130,9 +130,10 @@ while True:
     if url == "quit":
         break
     else:
-        start = datetime.now()
-        paramsStart = url.find("?")
-        if paramsStart >= 0:
-            url = url[:paramsStart]
+        if url.find("?") >= 0:
+            url += "&"
+        else:
+            url += "?"
+        url += "view=2"
         PageScrape(url)
         
